@@ -1,0 +1,37 @@
+module:
+  image: registry.babl.sh/larskluge/string-upcase:v46.bs-0.5.7
+  environment:
+    BABL_MODULE: larskluge/string-upcase
+    BABL_MODULE_VERSION: v46
+    BABL_COMMAND: /bin/app
+    BABL_KAFKA_BROKERS: kafka:9092
+  links:
+    - kafka
+
+zookeeper:
+  image: jplock/zookeeper:3.4.8
+  volumes:
+    - "data:/tmp/zookeeper"
+
+kafka:
+  image: wurstmeister/kafka:0.9.0.1
+  environment:
+    KAFKA_BROKER_ID: 1
+    KAFKA_ADVERTISED_HOST_NAME: kafka
+    KAFKA_ADVERTISED_PORT: 9092
+    KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+    KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    KAFKA_MESSAGE_MAX_BYTES: 100000000
+    KAFKA_REPLICA_FETCH_MAX_BYTES: 104857600
+    KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    KAFKA_CREATE_TOPICS: "modules:1:1"
+  links:
+    - zookeeper
+
+supervisor:
+  image: registry.babl.sh/supervisor2:latest
+  ports:
+    - "4445:4445"
+  command: "/bin/supervisor2 -kb kafka:9092"
+  links:
+    - kafka
