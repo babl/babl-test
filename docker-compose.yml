@@ -10,6 +10,7 @@ services:
       BABL_KAFKA_BROKERS: "kafka:9092"
     depends_on:
       - kafka
+    restart: always
 
   supervisor:
     image: registry.babl.sh/supervisor2:latest
@@ -18,6 +19,7 @@ services:
     command: "/bin/supervisor2 -kb kafka:9092 -debug"
     depends_on:
       - kafka
+    restart: always
 
   zookeeper:
     image: jplock/zookeeper:3.4.8
@@ -38,4 +40,4 @@ services:
       KAFKA_REPLICA_FETCH_MAX_BYTES: "104857600"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_CREATE_TOPICS: "modules:1:1"
-
+    restart: always
