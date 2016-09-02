@@ -12,3 +12,8 @@ Test
 babl -c localhost:4445 ping larskluge/string-upcase
 # => ping.. pong
 ```
+
+Run the tests:
+```
+fig run testsuite mocha
+```
