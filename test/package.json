@@ -12,6 +12,7 @@
   "author": "Mariusz Roliński <mariusz@mariusz.io>",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "chai": "^3.5.0",
     "node-babl": "^1.0.2"
   }

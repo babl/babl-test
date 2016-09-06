@@ -1,6 +1,9 @@
 FROM mhart/alpine-node:6.5.0
-ADD package.json test /data/
+ADD package.json /data/
+ADD test /data/test/
+ADD expected /data/expected/
+
 WORKDIR /data
 RUN npm install -g mocha
 RUN npm install
-CMD ["exit"]
+CMD ["echo"]
