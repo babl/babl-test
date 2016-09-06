@@ -2,23 +2,35 @@ version: '2'
 
 services:
   module_string_upcase:
-    image: registry.babl.sh/larskluge/string-upcase:v48
+    image: registry.babl.sh/larskluge/string-upcase:v49
     environment:
       BABL_MODULE: larskluge/string-upcase
-      BABL_MODULE_VERSION: v48
+      BABL_MODULE_VERSION: v49
       BABL_COMMAND: /bin/app
       BABL_KAFKA_BROKERS: "kafka:9092"
+      BABL_STORAGE: "storage:4443"
+      BABL_DEBUG: "true"
     depends_on:
       - kafka
+      - storage
     restart: always
 
   supervisor:
-    image: registry.babl.sh/supervisor2:v67
+    image: registry.babl.sh/supervisor2:v71
     ports:
       - "4445:4445"
-    command: "/bin/supervisor2 -kb kafka:9092 -debug"
+    command: "/bin/supervisor2 -kb kafka:9092 -debug -storage storage:4443"
     depends_on:
       - kafka
+      - storage
+    restart: always
+
+  storage:
+    image: registry.babl.sh/storage:v40
+    ports:
+      - "4443:4443"
+      - "4442:4442"
+    command: "babl-storage -cache-dir=/tmp/cache -log-format=json -file-server-address=:4442 -upload-server-address=:4443 -blob-url-template=http://storage:4442/%s"
     restart: always
 
   zookeeper:
