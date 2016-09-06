@@ -1,0 +1,11 @@
+{
+  "module": "larskluge/image-resize-new",
+  "description": "Resizes image to 300x300.",
+  "params": {
+    "env": {
+      "WIDTH": "300",
+      "HEIGHT": "300",
+      "FORMAT": "jpg"
+    }
+  }
+}
