@@ -1,0 +1,4 @@
+#!/bin/bash
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+$DIR/bin/generate_docker_compose > "$DIR/docker-compose.yml"
+docker-compose $*

@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+require 'yaml'
+
+root_dir = File.expand_path '../..', __FILE__
+template_path = File.join root_dir, 'docker-compose.yml.template'
+babl_server_path = File.join root_dir, 'dev', 'babl-server_linux_amd64'
+template = YAML.load File.read(template_path).gsub(/ROOTDIR/, root_dir)
+
+template['services'].keys.each do |key|
+  if key =~ /module_/ && File.exists?(babl_server_path)
+    template['services'][key]['volumes'] = [
+      "./dev/babl-server_linux_amd64:/bin/babl-server:ro",
+    ]
+  end
+end
+
+puts template.to_yaml

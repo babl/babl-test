@@ -1,0 +1,4 @@
+#!/bin/sh
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+${DIR}/compose build test
+${DIR}/compose run --rm test mocha --delay -t 15000
