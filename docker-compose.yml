@@ -15,6 +15,17 @@ services:
       - storage
     restart: always
 
+  module_image_resize:
+    image: registry.babl.sh/larskluge/image-resize-new:v3
+    environment:
+      BABL_MODULE: larskluge/image-resize-new
+      BABL_MODULE_VERSION: v3
+      BABL_COMMAND: /bin/app
+      BABL_KAFKA_BROKERS: "kafka:9092"
+    depends_on:
+      - kafka
+    restart: always
+
   supervisor:
     image: registry.babl.sh/supervisor2:v71
     ports:

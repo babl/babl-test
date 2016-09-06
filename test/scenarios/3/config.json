@@ -1,0 +1,5 @@
+{
+  "module": "larskluge/string-upcase",
+  "description": "Uppercases 10MB string.",
+  "pending": true
+}
