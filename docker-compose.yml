@@ -24,6 +24,7 @@ services:
       BABL_KAFKA_BROKERS: "kafka:9092"
     depends_on:
       - kafka
+      - storage
     restart: always
 
   supervisor:
