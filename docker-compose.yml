@@ -2,10 +2,10 @@ version: '2'
 
 services:
   module_string_upcase:
-    image: registry.babl.sh/larskluge/string-upcase:v49
+    image: registry.babl.sh/larskluge/string-upcase:v50
     environment:
       BABL_MODULE: larskluge/string-upcase
-      BABL_MODULE_VERSION: v49
+      BABL_MODULE_VERSION: v50
       BABL_COMMAND: /bin/app
       BABL_KAFKA_BROKERS: "kafka:9092"
       BABL_STORAGE: "storage:4443"
@@ -16,12 +16,14 @@ services:
     restart: always
 
   module_image_resize:
-    image: registry.babl.sh/larskluge/image-resize-new:v3
+    image: registry.babl.sh/larskluge/image-resize-new:v4
     environment:
       BABL_MODULE: larskluge/image-resize-new
-      BABL_MODULE_VERSION: v3
+      BABL_MODULE_VERSION: v4
       BABL_COMMAND: /bin/app
       BABL_KAFKA_BROKERS: "kafka:9092"
+      BABL_STORAGE: "storage:4443"
+      BABL_DEBUG: "true"
     depends_on:
       - kafka
       - storage
