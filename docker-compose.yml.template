@@ -76,5 +76,8 @@ services:
   client_node:
     build: "ROOTDIR/clients/node"
 
+  client_ruby:
+    build: "ROOTDIR/clients/ruby"
+
   test:
     build: "ROOTDIR/test"

@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'sinatra'
+require 'base64'
+require 'babl'
+
+post '/' do
+  mod, prms = params.values_at('module', 'params')
+  Base64.strict_encode64 Babl.module! mod, (prms || {}).merge({ in: request.body.read })
+end
