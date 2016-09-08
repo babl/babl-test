@@ -1,5 +1,6 @@
 ---
 version: '2'
+
 services:
   module_string_upcase:
     image: registry.babl.sh/larskluge/string-upcase:v50
@@ -14,6 +15,7 @@ services:
     - kafka
     - storage
     restart: always
+
   module_image_resize:
     image: registry.babl.sh/larskluge/image-resize-new:v4
     environment:
@@ -27,6 +29,7 @@ services:
     - kafka
     - storage
     restart: always
+
   supervisor:
     image: registry.babl.sh/supervisor2:v71
     mem_limit: 64m
@@ -37,6 +40,7 @@ services:
     - kafka
     - storage
     restart: always
+
   storage:
     image: registry.babl.sh/storage:v40
     mem_limit: 64m
@@ -47,10 +51,12 @@ services:
     command: babl-storage -cache-dir=/tmp/cache -log-format=json -file-server-address=:4442
       -upload-server-address=:4443 -blob-url-template=http://storage:4442/%s
     restart: always
+
   zookeeper:
     image: jplock/zookeeper:3.4.8
     volumes:
     - "./data:/tmp/zookeeper"
+
   kafka:
     image: wurstmeister/kafka:0.9.0.1
     depends_on:
@@ -66,5 +72,9 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
       KAFKA_CREATE_TOPICS: modules:1:1
     restart: always
+
+  client_node:
+    build: "ROOTDIR/clients/node"
+
   test:
     build: "ROOTDIR/test"

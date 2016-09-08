@@ -15,6 +15,7 @@
     "bluebird": "^3.4.6",
     "chai": "^3.5.0",
     "core-error-predicates": "^1.1.0",
-    "node-babl": "^1.0.3"
+    "qs": "^6.2.1",
+    "request": "^2.74.0"
   }
 }

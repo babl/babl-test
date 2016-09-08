@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+var express = require('express');
+var app = express();
+var babl = require('node-babl');
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.raw({ type: 'application/octet-stream', limit: '100mb' }));
+
+app.post('/', function (rq, rs, next) {
+  var module = rq.query.module;
+  var params = Object.assign({}, rq.query.params, { stdin: rq.body });
+  console.log(module, params);
+
+  babl
+    .module(module, params)
+    .then(JSON.parse)
+    .then(function(result) {
+      if (result.error) {
+        throw new Error(result.error);
+      } else {
+        rs.send(result.result.Stdout);
+      }
+    })
+    .catch(next);
+});
+
+app.use(function(rq, rs, next) {
+  err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+app.use(function(err, rq, rs, next) {
+  rs.status(err.status || 500);
+  rs.json({
+    message: err.message,
+    error: err.status,
+  });
+});
+
+app.listen(3000, function () {
+  console.log('Nodejs client running on port 3000…');
+});

@@ -16,19 +16,14 @@ utils.getScenarios().then(function(dirs) {
           var params = Object.assign({}, config.params || {}, { stdin: input });
           return babl(config.module, params)
             .then(function(result) {
-              if (result.error) {
-                throw new Error(result.error);
-              } else {
-                var buf = Buffer.from(result.result.Stdout, 'base64');
-                return readFile(outputPath)
-                  .then(function(output) {
-                    expect(buf.length).to.equal(output.length);
-                    expect(Buffer.compare(buf, output)).to.equal(0);
-                    done();
-                  });
-              }
+              return readFile(outputPath)
+                .then(function(output) {
+                  expect(result.length).to.equal(output.length);
+                  expect(Buffer.compare(result, output)).to.equal(0);
+                  done();
+                });
             });
-        }).catch(done);
+          }).catch(done);
     };
 
     describe('Scenario: ' + (config.description || dir), function() {
