@@ -2,9 +2,20 @@ var Promise = require('bluebird');
 var request = require('request');
 var qs = require('qs');
 
+function clientUrl(type) {
+  switch (type) {
+    case 'node':
+    case 'ruby':
+    case 'cli':
+      return 'http://client_' + type + ':3000';
+    default:
+      throw new Error('Client "' + type + '" unknown.');
+  }
+}
+
 module.exports = function(module, params, client) {
   var stdin = params.stdin;
-  var url = 'http://client_node:3000';
+  var url = clientUrl(client);
   delete params.stdin;
 
   return new Promise(function(resolve, reject) {
