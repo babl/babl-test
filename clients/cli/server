@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'sinatra'
+require 'base64'
+require 'tempfile'
+
+post '/' do
+  mod, prms = params.values_at('module', 'params')
+  file, payload, env = Tempfile.new('cli'), request.body.read, (prms || {})['env'] || {}
+  env_params = env.reduce([]) { |arr, (k, v)| arr + ["-e #{k}=#{v}"] }.join(' ')
+  begin
+    file.rewind
+    file.write payload
+    file.close
+    Base64.strict_encode64 `cat #{file.path} | babl #{mod} #{env_params}`
+  ensure
+    file.close
+    file.unlink
+  end
+end
