@@ -18,7 +18,10 @@ babl -c localhost:4445 ping larskluge/string-upcase
 Run the tests:
 ```
 bin/test
+# or
+CLIENT=ruby bin/test
 ```
+where `CLIENT` is a comma-separated list. Supported values: node, ruby, cli.
 
 To use custom version of babl-server in all declared modules place `babl-server_linux_amd64` file inside `dev` directory.
 
