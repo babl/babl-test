@@ -40,6 +40,8 @@ services:
     - kafka
     - storage
     restart: always
+    volumes:
+    - "./dev/supervisor2_linux_amd64:/bin/supervisor2:ro"
 
   storage:
     image: registry.babl.sh/storage:v40
@@ -81,6 +83,8 @@ services:
 
   client_cli:
     build: "ROOTDIR/clients/cli"
+    volumes:
+    - "./dev/babl_linux_amd64:/bin/babl:ro"
 
   test:
     build: "ROOTDIR/test"
