@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ${DIR}/compose build test
 CLIENT=${CLIENT:-node}
