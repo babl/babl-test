@@ -53,6 +53,8 @@ services:
     command: babl-storage -cache-dir=/tmp/cache -log-format=json -file-server-address=:4442
       -upload-server-address=:4443 -blob-url-template=http://storage:4442/%s
     restart: always
+    volumes:
+    - "./dev/babl-storage_linux_amd64:/bin/babl-storage:ro"
 
   zookeeper:
     image: jplock/zookeeper:3.4.8
