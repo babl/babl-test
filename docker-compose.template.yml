@@ -35,7 +35,7 @@ services:
     mem_limit: 64m
     ports:
     - 4445:4445
-    command: "/bin/supervisor2 -kb kafka:9092 -debug -storage storage:4443"
+    command: "/bin/supervisor2 -kb kafka:9092 -debug"
     depends_on:
     - kafka
     - storage
@@ -83,6 +83,10 @@ services:
 
   client_cli:
     build: "ROOTDIR/clients/cli"
+    environment:
+      BABL_STORAGE: "storage:4443"
+      BABL_DEBUG: 'true'
+      BABL_ENDPOINT: "supervisor:4445"
     volumes:
     - "./dev/babl_linux_amd64:/bin/babl:ro"
 

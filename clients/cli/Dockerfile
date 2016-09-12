@@ -1,5 +1,4 @@
 FROM ruby:2.3.1
-ENV BABL_ENDPOINT supervisor:4445
 ENV RACK_ENV production
 ADD babl /bin/
 ADD Gemfile server /data/
