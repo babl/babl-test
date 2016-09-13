@@ -83,6 +83,10 @@ services:
 
   client_node:
     build: "ROOTDIR/clients/node"
+    environment:
+      BABL_STORAGE: "storage:4443"
+      BABL_DEBUG: 'true'
+      BABL_ENDPOINT: "supervisor:4445"
 
   client_ruby:
     build: "ROOTDIR/clients/ruby"
