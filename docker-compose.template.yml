@@ -19,10 +19,10 @@ services:
     - "./dev/babl-server_linux_amd64:/bin/babl-server:ro"
 
   module_image_resize:
-    image: registry.babl.sh/larskluge/image-resize-new:v4
+    image: registry.babl.sh/larskluge/image-resize-new:v5
     environment:
       BABL_MODULE: larskluge/image-resize-new
-      BABL_MODULE_VERSION: v4
+      BABL_MODULE_VERSION: v5
       BABL_COMMAND: "/bin/app"
       BABL_KAFKA_BROKERS: kafka:9092
       BABL_STORAGE: "storage:4443"
