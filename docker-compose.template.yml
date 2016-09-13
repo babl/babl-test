@@ -36,7 +36,7 @@ services:
 
   supervisor:
     image: registry.babl.sh/supervisor2:v74
-    mem_limit: 64m
+    mem_limit: 32m
     ports:
     - 4445:4445
     command: "/bin/supervisor2 -kb kafka:9092 -debug"
@@ -49,7 +49,7 @@ services:
 
   storage:
     image: registry.babl.sh/storage:v45
-    mem_limit: 64m
+    mem_limit: 16m
     memswap_limit: 0
     ports:
     - 4443:4443
