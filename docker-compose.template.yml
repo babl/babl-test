@@ -62,8 +62,6 @@ services:
 
   zookeeper:
     image: jplock/zookeeper:3.4.8
-    volumes:
-    - "./data:/tmp/zookeeper"
 
   kafka:
     image: wurstmeister/kafka:0.9.0.1
