@@ -1,0 +1,10 @@
+#!/bin/sh
+GREEN='\033[1;32m'
+WHITE='\033[1;0m'
+echo "${WHITE}larskluge/string-upcase: ${GREEN}`docker-compose run --rm module_string_upcase babl-server -version`"
+echo "${WHITE}larskluge/image-resize: ${GREEN}`docker-compose run --rm module_image_resize babl-server -version`"
+echo "${WHITE}supervisor: ${GREEN}`docker-compose run --rm supervisor supervisor2 -version`"
+echo "${WHITE}storage: ${GREEN}`docker-compose run --rm storage babl-storage -version`"
+echo "${WHITE}client_node (node-ruby): ${GREEN}`docker-compose run --rm client_node npm list | grep node-babl | sed -E "s/^[^a-z]+//g"`"
+echo "${WHITE}client_ruby (ruby-babl): ${GREEN}`docker-compose run --rm client_ruby bundle list | grep babl | sed -E "s/^[^a-z]+//g"`"
+echo "${WHITE}client_cli (babl-cli): ${GREEN}`docker-compose run --rm client_cli babl -version`${WHITE}"

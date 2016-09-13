@@ -48,7 +48,7 @@ services:
     - "./dev/supervisor2_linux_amd64:/bin/supervisor2:ro"
 
   storage:
-    image: registry.babl.sh/storage:v40
+    image: registry.babl.sh/storage:v45
     mem_limit: 64m
     memswap_limit: 0
     ports:
