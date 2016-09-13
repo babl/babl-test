@@ -3,10 +3,10 @@ version: '2'
 
 services:
   module_string_upcase:
-    image: registry.babl.sh/larskluge/string-upcase:v50
+    image: registry.babl.sh/larskluge/string-upcase:v51
     environment:
       BABL_MODULE: larskluge/string-upcase
-      BABL_MODULE_VERSION: v50
+      BABL_MODULE_VERSION: v51
       BABL_COMMAND: "/bin/app"
       BABL_KAFKA_BROKERS: kafka:9092
       BABL_STORAGE: storage:4443
