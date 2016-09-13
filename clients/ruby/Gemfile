@@ -2,4 +2,4 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'sinatra'
-gem 'babl', '= 0.4.2'
+gem 'babl', '= 0.4.3'
