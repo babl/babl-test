@@ -3,10 +3,10 @@ version: '2'
 
 services:
   module_string_upcase:
-    image: registry.babl.sh/larskluge/string-upcase:v50
+    image: registry.babl.sh/larskluge/string-upcase:v53
     environment:
       BABL_MODULE: larskluge/string-upcase
-      BABL_MODULE_VERSION: v50
+      BABL_MODULE_VERSION: v53
       BABL_COMMAND: "/bin/app"
       BABL_KAFKA_BROKERS: kafka:9092
       BABL_STORAGE: storage:4443
@@ -15,12 +15,14 @@ services:
     - kafka
     - storage
     restart: always
+    volumes:
+    - "./dev/babl-server_linux_amd64:/bin/babl-server:ro"
 
   module_image_resize:
-    image: registry.babl.sh/larskluge/image-resize-new:v4
+    image: registry.babl.sh/larskluge/image-resize-new:v5
     environment:
       BABL_MODULE: larskluge/image-resize-new
-      BABL_MODULE_VERSION: v4
+      BABL_MODULE_VERSION: v5
       BABL_COMMAND: "/bin/app"
       BABL_KAFKA_BROKERS: kafka:9092
       BABL_STORAGE: "storage:4443"
@@ -29,9 +31,11 @@ services:
     - kafka
     - storage
     restart: always
+    volumes:
+    - "./dev/babl-server_linux_amd64:/bin/babl-server:ro"
 
   supervisor:
-    image: registry.babl.sh/supervisor2:v71
+    image: registry.babl.sh/supervisor2:v74
     mem_limit: 64m
     ports:
     - 4445:4445
@@ -44,7 +48,7 @@ services:
     - "./dev/supervisor2_linux_amd64:/bin/supervisor2:ro"
 
   storage:
-    image: registry.babl.sh/storage:v40
+    image: registry.babl.sh/storage:v45
     mem_limit: 64m
     memswap_limit: 0
     ports:
@@ -79,9 +83,17 @@ services:
 
   client_node:
     build: "ROOTDIR/clients/node"
+    environment:
+      BABL_STORAGE: "storage:4443"
+      BABL_DEBUG: 'true'
+      BABL_ENDPOINT: "supervisor:4445"
 
   client_ruby:
     build: "ROOTDIR/clients/ruby"
+    environment:
+      BABL_STORAGE: "storage:4443"
+      BABL_DEBUG: 'true'
+      BABL_ENDPOINT: "supervisor:4445"
 
   client_cli:
     build: "ROOTDIR/clients/cli"
