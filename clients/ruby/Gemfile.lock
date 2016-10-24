@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    babl (0.4.1)
+    babl (0.5.1)
       multi_json (~> 1.11)
       quartz (~> 0.3)
     multi_json (1.12.1)
@@ -19,7 +19,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  babl (= 0.4.1)
+  babl (= 0.5.1)
   sinatra
 
 RUBY VERSION
