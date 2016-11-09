@@ -1,12 +1,28 @@
 ---
 version: '2'
-
 services:
   module_string_upcase:
-    image: registry.babl.sh/larskluge/string-upcase:v53
+    image: registry.babl.sh/larskluge/string-upcase:v56
     environment:
       BABL_MODULE: larskluge/string-upcase
-      BABL_MODULE_VERSION: v53
+      BABL_MODULE_VERSION: v56
+      BABL_DESIRED_SERVER_VERSION: 0.7.6
+      BABL_COMMAND: "/bin/app"
+      BABL_KAFKA_BROKERS: kafka:9092
+      BABL_STORAGE: storage:4443
+      BABL_DEBUG: 'true'
+    depends_on:
+    - kafka
+    - storage
+    restart: always
+    volumes:
+    - "./dev/babl-server_linux_amd64:/bin/babl-server:ro"
+  module_test_fail:
+    image: registry.babl.sh/larskluge/test-fail:v15
+    environment:
+      BABL_MODULE: larskluge/test-fail
+      BABL_MODULE_VERSION: v15
+      BABL_DESIRED_SERVER_VERSION: 0.7.6
       BABL_COMMAND: "/bin/app"
       BABL_KAFKA_BROKERS: kafka:9092
       BABL_STORAGE: storage:4443
@@ -19,10 +35,11 @@ services:
     - "./dev/babl-server_linux_amd64:/bin/babl-server:ro"
 
   module_image_resize:
-    image: registry.babl.sh/larskluge/image-resize-new:v5
+    image: registry.babl.sh/larskluge/image-resize:v26
     environment:
-      BABL_MODULE: larskluge/image-resize-new
-      BABL_MODULE_VERSION: v5
+      BABL_MODULE: larskluge/image-resize
+      BABL_MODULE_VERSION: v26
+      BABL_DESIRED_SERVER_VERSION: 0.7.6
       BABL_COMMAND: "/bin/app"
       BABL_KAFKA_BROKERS: kafka:9092
       BABL_STORAGE: "storage:4443"
@@ -35,7 +52,7 @@ services:
     - "./dev/babl-server_linux_amd64:/bin/babl-server:ro"
 
   supervisor:
-    image: registry.babl.sh/supervisor2:v74
+    image: registry.babl.sh/supervisor2:v96
     mem_limit: 32m
     ports:
     - 4445:4445
@@ -48,7 +65,7 @@ services:
     - "./dev/supervisor2_linux_amd64:/bin/supervisor2:ro"
 
   storage:
-    image: registry.babl.sh/storage:v45
+    image: registry.babl.sh/storage:latest
     mem_limit: 16m
     memswap_limit: 0
     ports:

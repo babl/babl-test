@@ -1,5 +1,5 @@
 {
-  "module": "larskluge/image-resize-new",
+  "module": "larskluge/image-resize",
   "description": "Resizes image to 300x300.",
   "params": {
     "env": {
